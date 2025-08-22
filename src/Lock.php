@@ -34,7 +34,7 @@ class Lock
     {
         while (true) {
             $this->token = uniqid('', true);
-            if ($this->redis->set($this->lockname, $this->token, 'NX', 'PX', $this->options['timeout'])) {
+            if ($this->redis->set($this->lockname, $this->token, 'PX', $this->options['timeout'], 'NX')) {
                 $this->validity = true;
                 break;
             }
